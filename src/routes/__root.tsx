@@ -83,6 +83,10 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { property: "og:description", content: "Unified admin, physician and patient portal for modern healthcare teams." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: "MediCore — Integrated Patient Care Management" },
+      { name: "twitter:description", content: "Unified admin, physician and patient portal for modern healthcare teams." },
+      { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/91e3cb26-da25-4f66-82a6-d9611ebd6794/id-preview-3bea4a9a--46452713-7ad8-4357-9ee7-8c0b790f7952.lovable.app-1783963350270.png" },
+      { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/91e3cb26-da25-4f66-82a6-d9611ebd6794/id-preview-3bea4a9a--46452713-7ad8-4357-9ee7-8c0b790f7952.lovable.app-1783963350270.png" },
     ],
     links: [
       { rel: "stylesheet", href: appCss },
