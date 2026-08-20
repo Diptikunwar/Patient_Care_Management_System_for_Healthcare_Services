@@ -2,8 +2,6 @@
 
 An integrated patient care management platform for healthcare services, built with **TanStack Start**, **React 19**, and **Tailwind CSS**. MediCore provides purpose-built, role-based dashboards for hospital administrators, doctors, and patients — bringing appointments, records, prescriptions, billing, and reporting into a single connected workspace.
 
-> This project was scaffolded and is maintained via [Lovable](https://lovable.dev).
-
 ## ✨ Features
 
 MediCore ships with three dedicated portals, each tailored to its user role:
