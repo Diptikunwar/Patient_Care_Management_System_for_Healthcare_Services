@@ -34,7 +34,9 @@ import { Route as DoctorLabReportsRouteImport } from './routes/doctor.lab-report
 import { Route as AdminSettingsRouteImport } from './routes/admin.settings'
 import { Route as AdminReportsRouteImport } from './routes/admin.reports'
 import { Route as AdminProfileRouteImport } from './routes/admin.profile'
+import { Route as AdminPrescriptionsRouteImport } from './routes/admin.prescriptions'
 import { Route as AdminPatientsRouteImport } from './routes/admin.patients'
+import { Route as AdminMedicinesRouteImport } from './routes/admin.medicines'
 import { Route as AdminDoctorsRouteImport } from './routes/admin.doctors'
 import { Route as AdminBillingRouteImport } from './routes/admin.billing'
 import { Route as AdminAppointmentsRouteImport } from './routes/admin.appointments'
@@ -164,9 +166,19 @@ const AdminProfileRoute = AdminProfileRouteImport.update({
   path: '/profile',
   getParentRoute: () => AdminRoute,
 } as any)
+const AdminPrescriptionsRoute = AdminPrescriptionsRouteImport.update({
+  id: '/prescriptions',
+  path: '/prescriptions',
+  getParentRoute: () => AdminRoute,
+} as any)
 const AdminPatientsRoute = AdminPatientsRouteImport.update({
   id: '/patients',
   path: '/patients',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminMedicinesRoute = AdminMedicinesRouteImport.update({
+  id: '/medicines',
+  path: '/medicines',
   getParentRoute: () => AdminRoute,
 } as any)
 const AdminDoctorsRoute = AdminDoctorsRouteImport.update({
@@ -194,7 +206,9 @@ export interface FileRoutesByFullPath {
   '/admin/appointments': typeof AdminAppointmentsRoute
   '/admin/billing': typeof AdminBillingRoute
   '/admin/doctors': typeof AdminDoctorsRoute
+  '/admin/medicines': typeof AdminMedicinesRoute
   '/admin/patients': typeof AdminPatientsRoute
+  '/admin/prescriptions': typeof AdminPrescriptionsRoute
   '/admin/profile': typeof AdminProfileRoute
   '/admin/reports': typeof AdminReportsRoute
   '/admin/settings': typeof AdminSettingsRoute
@@ -222,7 +236,9 @@ export interface FileRoutesByTo {
   '/admin/appointments': typeof AdminAppointmentsRoute
   '/admin/billing': typeof AdminBillingRoute
   '/admin/doctors': typeof AdminDoctorsRoute
+  '/admin/medicines': typeof AdminMedicinesRoute
   '/admin/patients': typeof AdminPatientsRoute
+  '/admin/prescriptions': typeof AdminPrescriptionsRoute
   '/admin/profile': typeof AdminProfileRoute
   '/admin/reports': typeof AdminReportsRoute
   '/admin/settings': typeof AdminSettingsRoute
@@ -254,7 +270,9 @@ export interface FileRoutesById {
   '/admin/appointments': typeof AdminAppointmentsRoute
   '/admin/billing': typeof AdminBillingRoute
   '/admin/doctors': typeof AdminDoctorsRoute
+  '/admin/medicines': typeof AdminMedicinesRoute
   '/admin/patients': typeof AdminPatientsRoute
+  '/admin/prescriptions': typeof AdminPrescriptionsRoute
   '/admin/profile': typeof AdminProfileRoute
   '/admin/reports': typeof AdminReportsRoute
   '/admin/settings': typeof AdminSettingsRoute
@@ -287,7 +305,9 @@ export interface FileRouteTypes {
     | '/admin/appointments'
     | '/admin/billing'
     | '/admin/doctors'
+    | '/admin/medicines'
     | '/admin/patients'
+    | '/admin/prescriptions'
     | '/admin/profile'
     | '/admin/reports'
     | '/admin/settings'
@@ -315,7 +335,9 @@ export interface FileRouteTypes {
     | '/admin/appointments'
     | '/admin/billing'
     | '/admin/doctors'
+    | '/admin/medicines'
     | '/admin/patients'
+    | '/admin/prescriptions'
     | '/admin/profile'
     | '/admin/reports'
     | '/admin/settings'
@@ -346,7 +368,9 @@ export interface FileRouteTypes {
     | '/admin/appointments'
     | '/admin/billing'
     | '/admin/doctors'
+    | '/admin/medicines'
     | '/admin/patients'
+    | '/admin/prescriptions'
     | '/admin/profile'
     | '/admin/reports'
     | '/admin/settings'
@@ -554,11 +578,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminProfileRouteImport
       parentRoute: typeof AdminRoute
     }
+    '/admin/prescriptions': {
+      id: '/admin/prescriptions'
+      path: '/prescriptions'
+      fullPath: '/admin/prescriptions'
+      preLoaderRoute: typeof AdminPrescriptionsRouteImport
+      parentRoute: typeof AdminRoute
+    }
     '/admin/patients': {
       id: '/admin/patients'
       path: '/patients'
       fullPath: '/admin/patients'
       preLoaderRoute: typeof AdminPatientsRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/medicines': {
+      id: '/admin/medicines'
+      path: '/medicines'
+      fullPath: '/admin/medicines'
+      preLoaderRoute: typeof AdminMedicinesRouteImport
       parentRoute: typeof AdminRoute
     }
     '/admin/doctors': {
@@ -589,7 +627,9 @@ interface AdminRouteChildren {
   AdminAppointmentsRoute: typeof AdminAppointmentsRoute
   AdminBillingRoute: typeof AdminBillingRoute
   AdminDoctorsRoute: typeof AdminDoctorsRoute
+  AdminMedicinesRoute: typeof AdminMedicinesRoute
   AdminPatientsRoute: typeof AdminPatientsRoute
+  AdminPrescriptionsRoute: typeof AdminPrescriptionsRoute
   AdminProfileRoute: typeof AdminProfileRoute
   AdminReportsRoute: typeof AdminReportsRoute
   AdminSettingsRoute: typeof AdminSettingsRoute
@@ -600,7 +640,9 @@ const AdminRouteChildren: AdminRouteChildren = {
   AdminAppointmentsRoute: AdminAppointmentsRoute,
   AdminBillingRoute: AdminBillingRoute,
   AdminDoctorsRoute: AdminDoctorsRoute,
+  AdminMedicinesRoute: AdminMedicinesRoute,
   AdminPatientsRoute: AdminPatientsRoute,
+  AdminPrescriptionsRoute: AdminPrescriptionsRoute,
   AdminProfileRoute: AdminProfileRoute,
   AdminReportsRoute: AdminReportsRoute,
   AdminSettingsRoute: AdminSettingsRoute,
@@ -669,3 +711,13 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { startInstance } from './start.ts'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}
